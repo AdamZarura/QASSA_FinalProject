@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "761641745784",
+    "firebase_url": "https://qassa-finalproject-default-rtdb.firebaseio.com",
+    "project_id": "qassa-finalproject",
+    "storage_bucket": "qassa-finalproject.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761641745784:android:6c7f2129fe85e0b8c69c8d",
+        "android_client_info": {
+          "package_name": "com.example.qassa_finalproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuq30WxuKz8iDhq1cAfKl_z0C0VNSEJcw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

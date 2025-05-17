@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "936988837465",
+    "project_id": "lsfp-1c367",
+    "storage_bucket": "lsfp-1c367.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:936988837465:android:52bd71d3fd58f02c351348",
+        "android_client_info": {
+          "package_name": "com.example.finalproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCS2ZIKqNG0OpoBM4WGcFcSrdDeLTX0Aw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:936988837465:android:fa807c9df12e7edf351348",
+        "android_client_info": {
+          "package_name": "com.example.lsf"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCS2ZIKqNG0OpoBM4WGcFcSrdDeLTX0Aw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:936988837465:android:2bf1583655ede794351348",
+        "android_client_info": {
+          "package_name": "com.example.qassa_finalproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCS2ZIKqNG0OpoBM4WGcFcSrdDeLTX0Aw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

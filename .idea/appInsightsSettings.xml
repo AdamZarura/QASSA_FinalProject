@@ -9,9 +9,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.example.qassa_finalproject" />
-                  <option name="mobileSdkAppId" value="1:936988837465:android:2bf1583655ede794351348" />
-                  <option name="projectId" value="lsfp-1c367" />
-                  <option name="projectNumber" value="936988837465" />
+                  <option name="mobileSdkAppId" value="1:761641745784:android:bb517ab5d9c35779c69c8d" />
+                  <option name="projectId" value="qassa-finalproject" />
+                  <option name="projectNumber" value="761641745784" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

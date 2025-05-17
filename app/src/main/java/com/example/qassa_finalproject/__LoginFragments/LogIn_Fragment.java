@@ -30,7 +30,7 @@ public class LogIn_Fragment extends Fragment {
     private EditText etUsername,etPassword;
     private TextView tvSignUp;
     private TextView tvForgotPassword;
-    private Button btLogin;
+    private Button btSignIn;
     private FirebaseServices fbs;
 
     private TextView bSignUp;
@@ -86,13 +86,61 @@ public class LogIn_Fragment extends Fragment {
     public void onStart() {
         super.onStart();
 
+        fbs = FirebaseServices.getInstance();
+        etUsername = getView().findViewById(R.id.etEmailForgotPassword);
+        etPassword = getView().findViewById(R.id.etPassword);
+        btSignIn = getView().findViewById(R.id.btSignIn);
         bSignUp = getView().findViewById(R.id.btSignUp);
+        tvForgotPassword = getView().findViewById(R.id.ForgotPassword);
+
+
         bSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.main, new Sign_Up_Fragment());
                 ft.commit();
+            }
+        });
+        tvForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.main, new ForgotPassword_Fragment());
+                ft.commit();
+            }
+        });
+
+        btSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // للفحص
+               String username = etUsername.getText().toString();
+               String password = etPassword.getText().toString();
+                if(username.trim().isEmpty() && password.trim().isEmpty()){
+                    Toast.makeText(getActivity(), "Some fields are empty !", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // للصنع
+                fbs.getAuth().signInWithEmailAndPassword(username,password).addOnSuccessListener(
+                        new OnSuccessListener<AuthResult>() {
+                            @Override
+                            public void onSuccess(AuthResult authResult) {
+                                Toast.makeText(getActivity(), "Success !", Toast.LENGTH_SHORT).show();
+
+                                /// gotoHomeFragment();
+
+                                ///////////////////////////
+                            }
+
+                        }
+                ).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(), "Failed !", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
         });
 

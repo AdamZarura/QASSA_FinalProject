@@ -14,11 +14,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.qassa_finalproject.BarberFragments.Home_Barber_Fragment;
 import com.example.qassa_finalproject.FirebaseServices;
 import com.example.qassa_finalproject.R;
+import com.example.qassa_finalproject.UserFragments.Home_Customer_Fragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -87,7 +92,7 @@ public class LogIn_Fragment extends Fragment {
         super.onStart();
 
         fbs = FirebaseServices.getInstance();
-        etUsername = getView().findViewById(R.id.etEmailForgotPassword);
+        etUsername = getView().findViewById(R.id.etEmail);
         etPassword = getView().findViewById(R.id.etPassword);
         btSignIn = getView().findViewById(R.id.btSignIn);
         bSignUp = getView().findViewById(R.id.btSignUp);
@@ -122,15 +127,44 @@ public class LogIn_Fragment extends Fragment {
                     return;
                 }
                 // للصنع
-                fbs.getAuth().signInWithEmailAndPassword(username,password).addOnSuccessListener(
+                fbs.getAuth().signInWithEmailAndPassword(username,password)
+                        .addOnSuccessListener(
                         new OnSuccessListener<AuthResult>() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
                                 Toast.makeText(getActivity(), "Success !", Toast.LENGTH_SHORT).show();
 
-                                /// gotoHomeFragment();
+                                FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                                ///////////////////////////
+                                FirebaseAuth fbs = FirebaseAuth.getInstance();
+                                FirebaseUser currentUser = fbs.getCurrentUser();
+                                String uid = currentUser.getUid();
+
+                                // Check if the UID exists in the "Users" collection
+                                db.collection("Users").document(uid).get()
+                                        .addOnSuccessListener(documentSnapshot -> {
+                                            if (documentSnapshot.exists()) {
+                                                // ✅ The UID exists in Users
+                                             //   Toast.makeText(getActivity(), "User exists", Toast.LENGTH_SHORT).show();
+
+                                                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                                ft.replace(R.id.main, new Home_Customer_Fragment());
+                                                ft.commit();
+
+                                            } else {
+                                                // ❌ UID not found in Users
+                                             //   Toast.makeText(getActivity(), "User does not exist", Toast.LENGTH_SHORT).show();
+                                                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                                ft.replace(R.id.main, new Home_Barber_Fragment());
+                                                ft.commit();
+                                            }
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            Toast.makeText(getActivity(), "Failed to check Users collection", Toast.LENGTH_SHORT).show();
+                                        });
+
+
+
                             }
 
                         }

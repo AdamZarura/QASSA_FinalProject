@@ -2,13 +2,22 @@ package com.example.qassa_finalproject.__LoginFragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.qassa_finalproject.FirebaseServices;
 import com.example.qassa_finalproject.R;
+import com.example.qassa_finalproject.UserFragments.Home_Customer_Fragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +25,10 @@ import com.example.qassa_finalproject.R;
  * create an instance of this fragment.
  */
 public class ForgotPassword_Fragment extends Fragment {
+
+    private FirebaseServices fbs;
+    private EditText etEmail;
+    private Button bReset;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,5 +75,35 @@ public class ForgotPassword_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_forgot_password_, container, false);
+    }
+
+    public void onStart(){
+        super.onStart();
+        fbs = FirebaseServices.getInstance();
+        etEmail = getView().findViewById(R.id.etEmailForgotPassword);
+        bReset = getView().findViewById(R.id.btnReset);
+        bReset.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                fbs.getAuth().sendPasswordResetEmail(etEmail.getText().toString())
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Toast.makeText(getActivity(), "Check your email", Toast.LENGTH_SHORT).show();
+
+                                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                    ft.replace(R.id.main, new LogIn_Fragment());
+                                    ft.commit();
+                                }
+                                else
+                                {
+                                    Toast.makeText(getActivity(), "Failed, check the email address you entered!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+            }
+
+        });
     }
 }

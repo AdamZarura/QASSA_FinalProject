@@ -4,268 +4,276 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".BarberFragments.EditShopFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- عنوان -->
         <TextView
-            android:id="@+id/textView16"
-            android:layout_width="27dp"
-            android:layout_height="26dp"
+            android:id="@+id/tv_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Enter your barber shop details"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- السعر -->
+        <TextView
+            android:id="@+id/tv_price_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="Price:"
             android:textColor="#2196F3"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.046"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.374"
-            tools:text="M:" />
+            app:layout_constraintTop_toBottomOf="@id/tv_header" />
 
+        <EditText
+            android:id="@+id/et_price"
+            android:layout_width="57dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="8dp"
+            android:inputType="numberDecimal"
+            app:layout_constraintStart_toEndOf="@id/tv_price_label"
+            app:layout_constraintTop_toTopOf="@id/tv_price_label" />
+
+        <!-- مواعيد العمل -->
         <TextView
-            android:id="@+id/textView17"
-            android:layout_width="27dp"
-            android:layout_height="26dp"
+            android:id="@+id/tv_daily_times"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="Daily times:"
             android:textColor="#2196F3"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.046"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.428"
-            tools:text="T:" />
+            app:layout_constraintTop_toBottomOf="@id/tv_price_label" />
 
+        <!-- Sunday -->
         <TextView
-            android:id="@+id/textView12"
-            android:layout_width="27dp"
-            android:layout_height="26dp"
-            android:textColor="#2196F3"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.049"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.317"
-            tools:text="S:" />
-
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="27dp"
-            android:layout_height="26dp"
-            android:textColor="#2196F3"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.049"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.544"
-            tools:text="T:" />
-
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="27dp"
-            android:layout_height="26dp"
-            android:textColor="#2196F3"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.049"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.485"
-            tools:text="W:" />
-
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="27dp"
-            android:layout_height="26dp"
+            android:id="@+id/tv_sunday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:text="S:"
             android:textColor="#2196F3"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.046"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.658" />
-
-        <TextView
-            android:id="@+id/textView19"
-            android:layout_width="243dp"
-            android:layout_height="28dp"
-            android:textColor="#2196F3"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.049"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.736"
-            tools:text="Estimated time for queue :" />
-
-        <TextView
-            android:id="@+id/textView21"
-            android:layout_width="243dp"
-            android:layout_height="28dp"
-            android:textColor="#2196F3"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.047"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.807"
-            tools:text="Add Pictures  +" />
-
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="51dp"
-            android:layout_height="26dp"
-            android:textColor="#2196F3"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.051"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.146"
-            tools:text="Price:" />
-
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="339dp"
-            android:layout_height="45dp"
-            android:text="Enter your barber shop details "
-            android:textSize="25sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.222"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.04" />
-
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="130dp"
-            android:layout_height="26dp"
-            android:textColor="#2196F3"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.05"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.238"
-            tools:text="Daily times:" />
+            app:layout_constraintTop_toBottomOf="@id/tv_daily_times" />
 
         <EditText
-            android:id="@+id/textView10"
-            android:layout_width="77dp"
-            android:layout_height="32dp"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.199"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.143"
-            tools:text="" />
-
-        <EditText
-            android:id="@+id/textView20"
-            android:layout_width="77dp"
-            android:layout_height="32dp"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.751"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.741"
-            tools:text="" />
-
-        <TextView
-            android:id="@+id/textView18"
-            android:layout_width="27dp"
-            android:layout_height="26dp"
-            android:textColor="#2196F3"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.049"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.604"
-            tools:text="F:" />
-
-        <EditText
-            android:id="@+id/editTextTime"
-            android:layout_width="183dp"
+            android:id="@+id/et_sunday"
+            android:layout_width="180dp"
             android:layout_height="35dp"
-            android:ems="10"
-            android:inputType="time"
-            app:layout_constraintStart_toEndOf="@+id/textView12"
-            tools:layout_editor_absoluteY="222dp" />
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@id/tv_sunday"
+            app:layout_constraintTop_toTopOf="@id/tv_sunday" />
+
+        <!-- Monday -->
+        <TextView
+            android:id="@+id/tv_monday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:text="M:"
+            android:textColor="#2196F3"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_sunday" />
 
         <EditText
-            android:id="@+id/editTextTime2"
-            android:layout_width="183dp"
+            android:id="@+id/et_monday"
+            android:layout_width="180dp"
             android:layout_height="35dp"
-            android:ems="10"
-            android:inputType="time"
-            app:layout_constraintStart_toEndOf="@+id/textView16"
-            tools:layout_editor_absoluteY="257dp" />
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@id/tv_monday"
+            app:layout_constraintTop_toTopOf="@id/tv_monday" />
+
+        <!-- Tuesday -->
+        <TextView
+            android:id="@+id/tv_tuesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:text="T:"
+            android:textColor="#2196F3"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_monday" />
 
         <EditText
-            android:id="@+id/editTextTime3"
-            android:layout_width="183dp"
-            android:layout_height="39dp"
-            android:ems="10"
-            android:inputType="time"
-            app:layout_constraintStart_toEndOf="@+id/textView17"
-            tools:layout_editor_absoluteY="290dp" />
+            android:id="@+id/et_tuesday"
+            android:layout_width="180dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@id/tv_tuesday"
+            app:layout_constraintTop_toTopOf="@id/tv_tuesday" />
+
+        <!-- Wednesday -->
+        <TextView
+            android:id="@+id/tv_wednesday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:text="W:"
+            android:textColor="#2196F3"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_tuesday" />
 
         <EditText
-            android:id="@+id/editTextTime4"
-            android:layout_width="181dp"
-            android:layout_height="32dp"
-            android:ems="10"
-            android:inputType="time"
-            app:layout_constraintStart_toEndOf="@+id/textView13"
-            tools:layout_editor_absoluteY="379dp" />
+            android:id="@+id/et_wednesday"
+            android:layout_width="180dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@id/tv_wednesday"
+            app:layout_constraintTop_toTopOf="@id/tv_wednesday" />
+
+        <!-- Thursday -->
+        <TextView
+            android:id="@+id/tv_thursday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:text="T:"
+            android:textColor="#2196F3"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_wednesday" />
 
         <EditText
-            android:id="@+id/editTextTime6"
-            android:layout_width="183dp"
-            android:layout_height="36dp"
-            android:ems="10"
-            android:inputType="time"
-            app:layout_constraintStart_toEndOf="@+id/textView14"
-            tools:layout_editor_absoluteY="331dp" />
+            android:id="@+id/et_thursday"
+            android:layout_width="180dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@id/tv_thursday"
+            app:layout_constraintTop_toTopOf="@id/tv_thursday" />
+
+        <!-- Friday -->
+        <TextView
+            android:id="@+id/tv_friday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:text="F:"
+            android:textColor="#2196F3"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_thursday" />
 
         <EditText
-            android:id="@+id/editTextTime5"
-            android:layout_width="181dp"
-            android:layout_height="43dp"
-            android:ems="10"
-            android:inputType="time"
-            app:layout_constraintStart_toEndOf="@+id/textView18"
-            tools:layout_editor_absoluteY="413dp" />
+            android:id="@+id/et_friday"
+            android:layout_width="180dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@id/tv_friday"
+            app:layout_constraintTop_toTopOf="@id/tv_friday" />
+
+        <!-- Saturday -->
+        <TextView
+            android:id="@+id/tv_saturday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:text="S:"
+            android:textColor="#2196F3"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_friday" />
 
         <EditText
-            android:id="@+id/editTextTime8"
-            android:layout_width="181dp"
-            android:layout_height="43dp"
-            android:ems="10"
-            android:inputType="time"
-            app:layout_constraintStart_toEndOf="@+id/textView18"
-            tools:layout_editor_absoluteY="452dp" />
+            android:id="@+id/et_saturday"
+            android:layout_width="180dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@id/tv_saturday"
+            app:layout_constraintTop_toTopOf="@id/tv_saturday" />
 
+        <!-- الوقت المقدر للانتظار -->
+        <TextView
+            android:id="@+id/tv_estimated_queue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="Estimated time for queue:"
+            android:textColor="#2196F3"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_saturday" />
+
+        <EditText
+            android:id="@+id/et_estimated_queue"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="8dp"
+            android:inputType="number"
+            app:layout_constraintStart_toEndOf="@id/tv_estimated_queue"
+            app:layout_constraintTop_toTopOf="@id/tv_estimated_queue" />
+
+        <!-- زر إضافة الصور -->
+        <TextView
+            android:id="@+id/tv_add_pictures"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="Add Pictures +"
+            android:textColor="#2196F3"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_estimated_queue" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="179dp"
+            android:layout_height="31dp"
+            android:text="Barber Shop Name:"
+            android:textColor="#2196F3"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.633"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.105" />
+
+        <EditText
+            android:id="@+id/etShopNmae"
+            android:layout_width="81dp"
+            android:layout_height="35dp"
+            app:layout_constraintStart_toEndOf="@+id/textView5"
+            app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#2196F3"
+            android:text="Save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.95"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.976" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

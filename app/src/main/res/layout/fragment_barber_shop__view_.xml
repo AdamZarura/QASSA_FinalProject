@@ -106,7 +106,7 @@
         tools:text="T:" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/tvSun"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Working hours:"
@@ -118,7 +118,7 @@
         app:layout_constraintVertical_bias="0.353" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/tvFri"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
@@ -130,7 +130,7 @@
         app:layout_constraintVertical_bias="0.671" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/tvWed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
@@ -142,7 +142,7 @@
         app:layout_constraintVertical_bias="0.568" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/tvSun"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
@@ -154,7 +154,7 @@
         app:layout_constraintVertical_bias="0.408" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/tvtue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
@@ -166,7 +166,7 @@
         app:layout_constraintVertical_bias="0.515" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/tvMon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
@@ -178,7 +178,7 @@
         app:layout_constraintVertical_bias="0.462" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/tvSat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
@@ -190,7 +190,7 @@
         app:layout_constraintVertical_bias="0.723" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/tvThu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
@@ -264,7 +264,7 @@
         app:layout_constraintVertical_bias="0.748" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnTake"
         android:layout_width="98dp"
         android:layout_height="46dp"
         android:layout_marginTop="160dp"
@@ -290,7 +290,7 @@
         app:layout_constraintVertical_bias="0.224" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/tvPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"

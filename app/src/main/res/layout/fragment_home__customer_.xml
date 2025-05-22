@@ -12,6 +12,7 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ShopsList"
             android:layout_width="412dp"
             android:layout_height="671dp"
             app:layout_constraintBottom_toBottomOf="parent"

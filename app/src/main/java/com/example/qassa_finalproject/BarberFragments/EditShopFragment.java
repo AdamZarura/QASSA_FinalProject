@@ -110,6 +110,7 @@ public class EditShopFragment extends Fragment {
 
                 int price = Integer.parseInt(etPrice.getText().toString());
                 int estimatedQueue = Integer.parseInt(etEstimatedQueue.getText().toString());
+                String Name = etShopName.getText().toString();
                 String sun = etSunday.getText().toString();
                 String mon = etMonday.getText().toString();
                 String tue = etTuesday.getText().toString();
@@ -118,10 +119,8 @@ public class EditShopFragment extends Fragment {
                 String fri = etFriday.getText().toString();
                 String sat = etSaturday.getText().toString();
 
-// أنشئ الكائن باستخدام القيم الصحيحة
-                BarberShop Shop = new BarberShop(Bid, price, estimatedQueue, sun, mon, tue, wed, thu, fri, sat);
+                BarberShop Shop = new BarberShop(Bid, price, estimatedQueue,Name, sun, mon, tue, wed, thu, fri, sat);
 
-              //  BarberShop Shop = new BarberShop( Bid.toString(), price, etEstimatedQueue,etSunday,etMonday,etTuesday,etWednesday,etThursday,etFriday,etSaturday);;
 
                 saveBarberShopToFirestore(Bid, Shop);
 

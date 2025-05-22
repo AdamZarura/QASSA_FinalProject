@@ -1,12 +1,16 @@
 package com.example.qassa_finalproject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class BarberShop {
     String Bid;
     private String bImage;   //back ground image
     private String fImage;   //front image
     private int price;
+    private String Name;
     //private String[] DialyTime;
     private ArrayList<String> images;
 
@@ -30,10 +34,11 @@ public class BarberShop {
     }
     */
 
-    public BarberShop(String Bid,int price,int EstimatedQueue,String sun,String mon,String tue,String wed,String thu,String fri,String sat){
+    public BarberShop(String Bid,int price,int EstimatedQueue,String Name,String sun,String mon,String tue,String wed,String thu,String fri,String sat){
        this.Bid=Bid;
        this.price = price;
        this.EstimatedQueue=EstimatedQueue;
+       this.Name= Name;
 
        this.sun=sun;
        this.mon=mon;
@@ -43,6 +48,7 @@ public class BarberShop {
        this.fri=fri;
        this.sat=sat;
 
+        GenerateQueue(sun,EstimatedQueue);
     }
 
     public void setBImage(String bImage) {this.bImage = bImage;}
@@ -66,6 +72,12 @@ public class BarberShop {
     public void setBid(String bid) {
         Bid = bid;
     }
+
+    public String getName() {
+        return Name;
+    }
+    public void setName(String name) {
+        Name = name;}
 
     public String getSun() {
         return sun;
@@ -211,5 +223,11 @@ public class BarberShop {
 
     }
 
+
+    public static String getTodayDayName() {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE", Locale.ENGLISH);
+        return sdf.format(date);
+    }
 // avilable
 }

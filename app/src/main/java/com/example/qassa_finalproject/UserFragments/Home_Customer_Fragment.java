@@ -36,7 +36,6 @@ public class Home_Customer_Fragment extends Fragment {
 
     // RecyclerView
     private RecyclerView recyclerView;
-  //  private AP_recyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -115,10 +114,6 @@ public class Home_Customer_Fragment extends Fragment {
 
     }
 
-    public void gotoBarberShopDetails() {
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.main, new BarberShop_View_Fragment());
-        ft.commit();
-    }
+
 }
 ////////////////

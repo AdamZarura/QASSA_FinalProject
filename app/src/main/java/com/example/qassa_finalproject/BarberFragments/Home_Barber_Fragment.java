@@ -3,12 +3,16 @@ package com.example.qassa_finalproject.BarberFragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.qassa_finalproject.FirebaseServices;
 import com.example.qassa_finalproject.R;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +20,16 @@ import com.example.qassa_finalproject.R;
  * create an instance of this fragment.
  */
 public class Home_Barber_Fragment extends Fragment {
+
+
+    private FirebaseServices fbs;
+    private FirebaseFirestore db;
+    private FirebaseStorage fs;
+
+    // RecyclerView
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,5 +76,15 @@ public class Home_Barber_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home__barber_, container, false);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+
+
+
+
     }
 }

@@ -1,4 +1,4 @@
-package com.example.qassa_finalproject.UserFragments;
+package com.example.qassa_finalproject.BarberFragments;
 
 import android.os.Bundle;
 
@@ -7,20 +7,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.qassa_finalproject.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Shop_Row_Fragment#newInstance} factory method to
+ * Use the {@link Queue_ForBarber_Row_Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Shop_Row_Fragment extends Fragment {
-
-    private TextView textV;
-    private Button btn;
+public class Queue_ForBarber_Row_Fragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,7 +26,7 @@ public class Shop_Row_Fragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Shop_Row_Fragment() {
+    public Queue_ForBarber_Row_Fragment() {
         // Required empty public constructor
     }
 
@@ -41,11 +36,11 @@ public class Shop_Row_Fragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Shop_Row_Fragment.
+     * @return A new instance of fragment Queue_ForBarber_Row_Fragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Shop_Row_Fragment newInstance(String param1, String param2) {
-        Shop_Row_Fragment fragment = new Shop_Row_Fragment();
+    public static Queue_ForBarber_Row_Fragment newInstance(String param1, String param2) {
+        Queue_ForBarber_Row_Fragment fragment = new Queue_ForBarber_Row_Fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -66,16 +61,6 @@ public class Shop_Row_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shop__row_, container, false);
-    }
-
-    @Override
-    public void onStart(){
-        super.onStart();
-        textV = getActivity().findViewById(R.id.tvUserName);
-
-
-
-
+        return inflater.inflate(R.layout.fragment_queue__for_barber__row_, container, false);
     }
 }

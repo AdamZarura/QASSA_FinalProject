@@ -1,5 +1,6 @@
 package com.example.qassa_finalproject;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -7,7 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.example.qassa_finalproject.AddFragments.AddDetails_User_Fragment;
+import com.example.qassa_finalproject.UserFragments.BarberShop_View_Fragment;
 import com.example.qassa_finalproject.__LoginFragments.LogIn_Fragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.main, new LogIn_Fragment());
         ft.commit();
     }
+
+
 
 
 

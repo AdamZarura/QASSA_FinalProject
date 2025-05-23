@@ -1,112 +1,120 @@
 package com.example.qassa_finalproject.UserFragments;
 
+// ... (الاستيرادات الأخرى)
 import android.os.Bundle;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.example.qassa_finalproject.AddFragments.AddDetails_User_Fragment;
+import android.widget.Toast;
 import com.example.qassa_finalproject.BarberShop;
 import com.example.qassa_finalproject.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link BarberShop_View_Fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class BarberShop_View_Fragment extends Fragment {
 
     private Button buttont;
     private TextView price;
     private TextView sun, mon, tue, wed, thu, fri, sat;
+    private TextView shopNameTextView;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private static final String ARG_BARBERSHOP = "barber_shop";
+    private BarberShop mBarberShop;
 
     public BarberShop_View_Fragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment BarberShop_View_Fragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static BarberShop_View_Fragment newInstance(String param1, String param2) {
+    public static BarberShop_View_Fragment newInstance(BarberShop barberShop) {
         BarberShop_View_Fragment fragment = new BarberShop_View_Fragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putSerializable(ARG_BARBERSHOP, barberShop);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mBarberShop = (BarberShop) getArguments().getSerializable(ARG_BARBERSHOP);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_barber_shop__view_, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_barber_shop__view_, container, false);
+
+        // *** هنا يتم البحث عن الـ Views. تأكد أن الـ IDs صحيحة وموجودة في الـ XML ***
+        buttont = view.findViewById(R.id.btnTakeTurn);
+        price = view.findViewById(R.id.tvPrice); // تأكد من صحة هذا الـ ID في XML
+        sun = view.findViewById(R.id.tvSun);
+        mon = view.findViewById(R.id.tvMon);
+        tue = view.findViewById(R.id.tvtue);
+        wed = view.findViewById(R.id.tvWed);
+        thu = view.findViewById(R.id.tvThu);
+        fri = view.findViewById(R.id.tvFri);
+        sat = view.findViewById(R.id.tvSat);
+        shopNameTextView = view.findViewById(R.id.tvShopName); // تأكد من صحة هذا الـ ID في XML
+
+        return view;
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
 
-        buttont = getActivity().findViewById(R.id.btnTake);
-        price = getActivity().findViewById(R.id.textView16);
-        sun = getActivity().findViewById(R.id.tvSun);
-        mon = getActivity().findViewById(R.id.tvMon);
-        tue = getActivity().findViewById(R.id.tvtue);
-        wed = getActivity().findViewById(R.id.tvWed);
-        thu = getActivity().findViewById(R.id.tvThu);
-        fri = getActivity().findViewById(R.id.tvFri);
-        sat = getActivity().findViewById(R.id.tvSat);
-
-        //تسليك
-        BarberShop Shop=(BarberShop) getArguments().getSerializable("Shop");
-
-        buttont.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.main, new Take_Queue_Fragment());
-                ft.commit();
+        if (mBarberShop != null) {
+            // *** التحقق من أن shopNameTextView ليس null قبل الاستخدام ***
+            if (shopNameTextView != null) {
+                shopNameTextView.setText(mBarberShop.getName());
+            } else {
+                Toast.makeText(getContext(), "Error: Shop name TextView not found in layout.", Toast.LENGTH_SHORT).show();
             }
-        });
 
-        price.setText(Shop.getPrice());
-        sun.setText(Shop.getSun());
-        mon.setText(Shop.getMon());
-        tue.setText(Shop.getTue());
-        wed.setText(Shop.getWed());
-        thu.setText(Shop.getThu());
-        fri.setText(Shop.getFri());
-        sat.setText(Shop.getSat());
+            // *** هذه هي الأسطر التي أشرت إليها. التحقق من أن TextView ليس null هنا ***
+            try {
+                if (price != null) {
+                    price.setText(String.valueOf(mBarberShop.getPrice()));
+                } else {
+                    Toast.makeText(getContext(), "Error: Price TextView not found in layout.", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e.getMessage());
+            }
 
+            if (sun != null) sun.setText(mBarberShop.getSun());
+            if (mon != null) mon.setText(mBarberShop.getMon());
+            if (tue != null) tue.setText(mBarberShop.getTue());
+            if (wed != null) wed.setText(mBarberShop.getWed());
+            if (thu != null) thu.setText(mBarberShop.getThu());
+            if (fri != null) fri.setText(mBarberShop.getFri());
+            if (sat != null) sat.setText(mBarberShop.getSat());
+
+        } else {
+            Toast.makeText(getContext(), "Error: BarberShop data could not be loaded. Please try again.", Toast.LENGTH_LONG).show();
+        }
+
+        if (buttont != null) {
+            buttont.setOnClickListener(v -> {
+                Take_Queue_Fragment fragment = new Take_Queue_Fragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("barber_shop", mBarberShop);
+                fragment.setArguments(bundle);
+
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.main, fragment) // Use the correct container ID here
+                        .addToBackStack(null)
+                        .commit();
+            });
+
+        }
     }
 }

@@ -8,6 +8,18 @@
 
 
     <TextView
+        android:id="@+id/tvSat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.195"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.723" />
+
+    <TextView
         android:id="@+id/textView16"
         android:layout_width="27dp"
         android:layout_height="26dp"
@@ -106,7 +118,7 @@
         tools:text="T:" />
 
     <TextView
-        android:id="@+id/tvSun"
+        android:id="@+id/tv2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Working hours:"
@@ -118,7 +130,7 @@
         app:layout_constraintVertical_bias="0.353" />
 
     <TextView
-        android:id="@+id/tvFri"
+                     android:id="@+id/tvFri"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
@@ -178,18 +190,6 @@
         app:layout_constraintVertical_bias="0.462" />
 
     <TextView
-        android:id="@+id/tvSat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.195"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.723" />
-
-    <TextView
         android:id="@+id/tvThu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -227,7 +227,7 @@
         tools:src="@tools:sample/backgrounds/scenic" />
 
     <View
-        android:id="@+id/view"
+        android:id="@+id/view2"
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:background="@color/black"
@@ -250,7 +250,7 @@
         tools:src="@tools:sample/avatars" />
 
     <View
-        android:id="@+id/view"
+        android:id="@+id/view1"
         android:layout_width="wrap_content"
         android:layout_height="3dp"
         android:layout_marginStart="8dp"
@@ -264,7 +264,7 @@
         app:layout_constraintVertical_bias="0.748" />
 
     <Button
-        android:id="@+id/btnTake"
+        android:id="@+id/btnTakeTurn"
         android:layout_width="98dp"
         android:layout_height="46dp"
         android:layout_marginTop="160dp"
@@ -309,4 +309,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view"></LinearLayout>
+
+    <TextView
+        android:id="@+id/tvShopName"
+        android:layout_width="112dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

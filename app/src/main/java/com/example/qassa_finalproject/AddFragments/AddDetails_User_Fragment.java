@@ -96,8 +96,23 @@ public class AddDetails_User_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_details__user_, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_details__user_, container, false);
+
+        userImageView = view.findViewById(R.id.ImageView); // Make sure the ID is correct
+        btnUserImage = view.findViewById(R.id.btnSelectImage);
+
+        btnUserImage.setOnClickListener(v -> {
+            try {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        return view;
     }
 
     @Override
@@ -175,7 +190,13 @@ public class AddDetails_User_Fragment extends Fragment {
                     Intent intent = new Intent();
                     intent.setType("image/*");
                     intent.setAction(Intent.ACTION_GET_CONTENT);
-          //          startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+                    Intent chooserIntent = Intent.createChooser(intent, "Select Picture");
+                    if (chooserIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
+                        startActivityForResult(chooserIntent, PICK_IMAGE_REQUEST);
+                    } else {
+                        Toast.makeText(getContext(), "No app found to select image", Toast.LENGTH_SHORT).show();
+                    }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -186,19 +207,23 @@ public class AddDetails_User_Fragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+try {
+    if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
+        // Get the selected image URI
+        imageUri = data.getData();
+        userImageView.setImageURI(imageUri);
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
-            // Get the selected image URI
-            imageUri = data.getData();
+        // Show the selected image in the ImageView
+        if (imageUri != null && userImageView != null) {
             userImageView.setImageURI(imageUri);
-
-            // Show the selected image in the ImageView
-            if (imageUri != null && userImageView != null) {
-                userImageView.setImageURI(imageUri);
-            } else {
-                Toast.makeText(getActivity(), "Failed to load image.", Toast.LENGTH_SHORT).show();
-            }
+        } else {
+            Toast.makeText(getActivity(), "Failed to load image.", Toast.LENGTH_SHORT).show();
         }
+    }
+} catch (Exception e) {
+    throw new RuntimeException(e);
+}
+
     }
 
 

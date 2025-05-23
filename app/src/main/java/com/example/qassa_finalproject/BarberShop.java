@@ -1,11 +1,12 @@
 package com.example.qassa_finalproject;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class BarberShop {
+public class BarberShop implements Serializable {
     String Bid;
     private String bImage;   //back ground image
     private String fImage;   //front image
@@ -128,8 +129,13 @@ public class BarberShop {
         this.sat = sat;
     }
 
+    public int getEstimatedQueue() {
+        return EstimatedQueue;
+    }
 
-
+    public void setEstimatedQueue(int estimatedQueue) {
+        EstimatedQueue = estimatedQueue;
+    }
 
     public String addTime(String theTime, int t){//t only minutes
 
@@ -222,13 +228,5 @@ public class BarberShop {
         return Q;
 
     }
-
-
-    public static String getTodayDayName() {
-        Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE", Locale.ENGLISH);
-        return sdf.format(date);
-    }
-
 
 }

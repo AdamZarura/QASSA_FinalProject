@@ -229,5 +229,6 @@ public class BarberShop {
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE", Locale.ENGLISH);
         return sdf.format(date);
     }
-// avilable
+
+
 }

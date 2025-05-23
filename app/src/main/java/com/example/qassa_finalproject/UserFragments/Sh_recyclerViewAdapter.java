@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,7 @@ import com.example.qassa_finalproject.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class Sh_recyclerViewAdapter extends RecyclerView.Adapter<Sh_recyclerViewAdapter.MyViewHolder> {
 
@@ -42,10 +44,21 @@ public class Sh_recyclerViewAdapter extends RecyclerView.Adapter<Sh_recyclerView
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.textV.setText(mDataset.get(position).getName());
-    }
 
+        //when click on item
+        MyViewHolder myHolder = (MyViewHolder) holder;
+        myHolder.itemView.setOnClickListener(v -> {
+            // Example: Show the name in a Toast
+            Toast.makeText(v.getContext(), "Clicked: " + mDataset.get(position).getName(), Toast.LENGTH_SHORT).show();
+        });
+    }
     @Override
     public int getItemCount() {
         return mDataset.size();
     }
+
+
+
+
 }
+///////////////////////////

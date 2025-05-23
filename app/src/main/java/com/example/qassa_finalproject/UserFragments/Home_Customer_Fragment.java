@@ -3,6 +3,7 @@ package com.example.qassa_finalproject.UserFragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.qassa_finalproject.AddFragments.AddDetails_User_Fragment;
 import com.example.qassa_finalproject.BarberShop;
 import com.example.qassa_finalproject.FirebaseServices;
 import com.example.qassa_finalproject.R;
@@ -109,5 +111,14 @@ public class Home_Customer_Fragment extends Fragment {
                 recyclerView.setAdapter(adapter);
             }
         });
+
+
+    }
+
+    public void gotoBarberShopDetails() {
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.main, new BarberShop_View_Fragment());
+        ft.commit();
     }
 }
+////////////////

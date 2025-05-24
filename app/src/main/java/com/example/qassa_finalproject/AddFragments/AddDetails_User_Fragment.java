@@ -1,14 +1,17 @@
 package com.example.qassa_finalproject.AddFragments;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +20,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import com.example.qassa_finalproject.FirebaseServices;
 import com.example.qassa_finalproject.R;
 import com.example.qassa_finalproject.User;
 import com.example.qassa_finalproject.UserFragments.Home_Customer_Fragment;
@@ -26,15 +27,10 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-import org.jetbrains.annotations.Nullable;
-import org.w3c.dom.Document;
-
-import java.util.Objects;
+import com.google.firebase.storage.UploadTask;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,37 +39,23 @@ import java.util.Objects;
  */
 public class AddDetails_User_Fragment extends Fragment {
 
-    private EditText Name,Age;
-    private Button Submit;
-    private Button btnUserImage;
+    private EditText Name, Age;
+    private Button Submit, btnUserImage;
+    private ImageView userImageView;
+    private Uri imageUri;
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int STORAGE_PERMISSION_CODE = 100;
 
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    // Factory method parameters (optional)
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-    private static final int PICK_IMAGE_REQUEST = 1;
-    private Uri imageUri;
-    private ImageView userImageView;
 
     public AddDetails_User_Fragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AddDetails_User_Fragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static AddDetails_User_Fragment newInstance(String param1, String param2) {
         AddDetails_User_Fragment fragment = new AddDetails_User_Fragment();
         Bundle args = new Bundle();
@@ -92,23 +74,18 @@ public class AddDetails_User_Fragment extends Fragment {
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_details__user_, container, false);
 
-        userImageView = view.findViewById(R.id.ImageView); // Make sure the ID is correct
+        userImageView = view.findViewById(R.id.ImageView); // Matches layout ID
         btnUserImage = view.findViewById(R.id.btnSelectImage);
 
-        btnUserImage.setOnClickListener(v -> {
-            try {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-            } catch (Exception e) {
-                e.printStackTrace();
+        btnUserImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkStoragePermissionAndPickImage();
             }
         });
 
@@ -122,123 +99,157 @@ public class AddDetails_User_Fragment extends Fragment {
         Submit = getView().findViewById(R.id.btSubmit);
         Name = getView().findViewById(R.id.etName);
         Age = getView().findViewById(R.id.etAge);
+        userImageView = getView().findViewById(R.id.ImageView);
         btnUserImage = getView().findViewById(R.id.btnSelectImage);
-        userImageView = getView().findViewById(R.id.imageView);
-
 
         Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = Name.getText().toString();
-                String age = Age.getText().toString();
-                String Uid = "";
-                FirebaseAuth fbs = FirebaseAuth.getInstance();
-                FirebaseUser currentUser = fbs.getCurrentUser();
-                        Uid = currentUser.getUid();
+                String name = Name.getText().toString().trim();
+                String age = Age.getText().toString().trim();
+                String uid = "";
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                FirebaseUser currentUser = auth.getCurrentUser();
 
-                if (name.trim().isEmpty() || age.trim().isEmpty()) {
-                    Toast.makeText(getActivity(), "Some fields are empty !", Toast.LENGTH_SHORT).show();
+                if (currentUser != null) {
+                    uid = currentUser.getUid();
+                } else {
+                    Toast.makeText(getActivity(), "User not authenticated!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                    if (imageUri != null) {
-                        StorageReference storageRef = FirebaseStorage.getInstance().getReference("user_images/" + Uid + ".jpg");
-                        String finalUid = Uid;
-                        storageRef.putFile(imageUri) .addOnSuccessListener(taskSnapshot -> {
-                            taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(uri -> {
-                                        String imageUrl = uri.toString();
-                                        User u = new User(name, Integer.parseInt(age), finalUid);
-                                        u.setImageUr(imageUrl);
-                                        saveUserToFirestore(finalUid, u);
-                            });
-                                })
-                                .addOnFailureListener(e -> {
-                                    Log.e("UPLOAD_ERROR", "Image upload failed", e);
-                                    Toast.makeText(getActivity(), "Image upload failed.", Toast.LENGTH_SHORT).show();
-                                });
-                    } else {
-                        // No image selected, continue with null imageUr
-                        User u = new User(name, Integer.parseInt(age), Uid);
-                        saveUserToFirestore(Uid, u);
-                    }
+                if (name.isEmpty() || age.isEmpty()) {
+                    Toast.makeText(getActivity(), "Some fields are empty!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-
-                // User u = new User(name, Integer.parseInt(age), Uid);
-               // db.collection("Users").document(Uid).set(u)
-                //        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                 //           @Override
-                  //          public void onSuccess(Void aVoid) {
-                   //             Toast.makeText(getActivity(), "Success!", Toast.LENGTH_SHORT).show();
-                    //        }
-                     //   })
-                      //  .addOnFailureListener(new OnFailureListener()
-                       // {
-                        //    @Override
-                         //   public void onFailure(@NonNull Exception e) {
-                          //      Toast.makeText(getActivity(), "Failed!", Toast.LENGTH_SHORT).show();
-                       // }
-               // });
-            }
-        });
-
-        btnUserImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
+                int ageInt;
                 try {
-                    Intent intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    Intent chooserIntent = Intent.createChooser(intent, "Select Picture");
-                    if (chooserIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
-                        startActivityForResult(chooserIntent, PICK_IMAGE_REQUEST);
-                    } else {
-                        Toast.makeText(getContext(), "No app found to select image", Toast.LENGTH_SHORT).show();
-                    }
+                    ageInt = Integer.parseInt(age);
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getActivity(), "Please enter a valid age!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                } catch (Exception e) {
-                    e.printStackTrace();
+                final String finalUid = uid;
+                if (imageUri != null) {
+                    StorageReference storageRef = FirebaseStorage.getInstance().getReference("user_images/" + finalUid + ".jpg");
+                    storageRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String imageUrl = uri.toString();
+                                    User user = new User(name, ageInt, finalUid);
+                                    user.setImageUr(imageUrl);
+                                    saveUserToFirestore(finalUid, user);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.e("DOWNLOAD_URL_ERROR", "Failed to get download URL", e);
+                                    Toast.makeText(getActivity(), "Failed to get image URL: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                         //   Log.e("UPLOAD_ERROR", "Image upload failed", e);
+                            Toast.makeText(getActivity(), "Image upload failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                } else {
+                    User user = new User(name, ageInt, finalUid);
+                    saveUserToFirestore(finalUid, user);
                 }
             }
         });
+
+
+        btnUserImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickImageFromGallery();
+            }
+        }) ;
+
+    }
+
+    private void checkStoragePermissionAndPickImage() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(requireActivity(),
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    STORAGE_PERMISSION_CODE);
+        } else {
+            pickImageFromGallery();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                pickImageFromGallery();
+            } else {
+                Toast.makeText(getContext(), "Storage permission denied. Cannot access gallery.", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private void pickImageFromGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        Intent chooserIntent = Intent.createChooser(intent, "Select Picture");
+        if (chooserIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
+            startActivityForResult(chooserIntent, PICK_IMAGE_REQUEST);
+        } else {
+            Toast.makeText(getContext(), "No app found to select image", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-try {
-    if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
-        // Get the selected image URI
-        imageUri = data.getData();
-        userImageView.setImageURI(imageUri);
-
-        // Show the selected image in the ImageView
-        if (imageUri != null && userImageView != null) {
-            userImageView.setImageURI(imageUri);
-        } else {
-            Toast.makeText(getActivity(), "Failed to load image.", Toast.LENGTH_SHORT).show();
+        try {
+            if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
+                imageUri = data.getData();
+                if (userImageView != null) {
+                    userImageView.setImageURI(imageUri);
+                } else {
+                    Toast.makeText(getActivity(), "Failed to load image. ImageView is null.", Toast.LENGTH_LONG).show();
+                }
+            } else {
+                Toast.makeText(getActivity(), "No image selected or operation cancelled.", Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "Error loading image: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
-} catch (Exception e) {
-    throw new RuntimeException(e);
-}
-
-    }
-
 
     private void saveUserToFirestore(String uid, User user) {
         FirebaseFirestore.getInstance().collection("Users").document(uid).set(user)
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(getActivity(), "User saved successfully!", Toast.LENGTH_SHORT).show();
-
-                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.main, new Home_Customer_Fragment());
-                    ft.commit();
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getActivity(), "User saved successfully!", Toast.LENGTH_LONG).show();
+                        if (getActivity() != null) {
+                            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                            ft.replace(R.id.main, new Home_Customer_Fragment());
+                            ft.commit();
+                        }
+                    }
                 })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(getActivity(), "Failed to save user!", Toast.LENGTH_SHORT).show();
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(), "Failed to save user: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 });
     }
-
 }

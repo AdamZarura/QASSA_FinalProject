@@ -93,7 +93,7 @@ public class Sign_Up_Fragment extends Fragment {
         etPassword = getView().findViewById(R.id.etPassword);
         btSignup   = getView().findViewById(R.id.btSignUp);
         AreYouBarber = getView().findViewById(R.id.S_AreU);
-   //     boolean isOn = AreYou.isChecked();
+        //     boolean isOn = AreYou.isChecked();
 
 
         btSignup.setOnClickListener(new View.OnClickListener() {
